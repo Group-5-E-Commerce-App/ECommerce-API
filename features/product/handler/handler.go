@@ -6,6 +6,7 @@ import (
 	"ecommerce/helper"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -44,5 +45,23 @@ func (ph *productHandle) Add() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, "unable to process the data")
 		}
 		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "success post product", res))
+	}
+}
+
+func (ph *productHandle) ProductDetail() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		paramID := c.Param("id")
+		productID, err := strconv.Atoi(paramID)
+		if err != nil {
+			log.Println("convert id error : ", err.Error())
+			return c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"message": "invalid input",
+			})
+		}
+		res, err := ph.srv.ProductDetail(uint(productID))
+		if err != nil {
+			return c.JSON(helper.PrintErrorResponse(err.Error()))
+		}
+		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "success get detail product", res))
 	}
 }

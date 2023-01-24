@@ -48,3 +48,26 @@ func CoreToData(data product.Core) Product {
 		UserID:        data.UserID,
 	}
 }
+
+func (dataModel *Product) ModelsToCore() product.Core {
+	return product.Core{
+		ID:            dataModel.ID,
+		ProductName:   dataModel.ProductName,
+		ProductImage:  dataModel.ProductImage,
+		Description:   dataModel.Description,
+		Category:      dataModel.Category,
+		Qty:           dataModel.Qty,
+		Price:         dataModel.Price,
+		ProductDetail: dataModel.ProductDetail,
+		ImportantInfo: dataModel.ImportantInfo,
+		UserID:        dataModel.UserID,
+	}
+}
+
+func ListToCore(data []Product) []product.Core {
+	var dataCore []product.Core
+	for _, v := range data {
+		dataCore = append(dataCore, v.ModelsToCore())
+	}
+	return dataCore
+}

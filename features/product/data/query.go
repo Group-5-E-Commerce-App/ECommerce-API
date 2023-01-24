@@ -2,6 +2,7 @@ package data
 
 import (
 	"ecommerce/features/product"
+	"log"
 
 	"gorm.io/gorm"
 )
@@ -26,4 +27,14 @@ func (pd *productData) Add(userID uint, newProduct product.Core) (product.Core, 
 	newProduct.ID = cnv.ID
 
 	return newProduct, nil
+}
+
+func (pd *productData) ProductDetail(productID uint) (product.Core, error) {
+	res := Product{}
+	if err := pd.db.Where("id = ?", productID).Find(&res).Error; err != nil {
+		log.Println("get product details by id query error : ", err.Error())
+		return product.Core{}, err
+	}
+
+	return ToCore(res), nil
 }

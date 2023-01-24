@@ -34,6 +34,7 @@ func main() {
 		Format: "method=${method}, uri=${uri}, status=${status}, error=${error}\n",
 	}))
 
+	e.GET("/products/:id", productHdl.ProductDetail())
 	e.POST("/register", userHdl.Register())
 	e.POST("/login", userHdl.Login())
 	e.GET("/users/profile", userHdl.Profile(), middleware.JWT([]byte(config.JWT_KEY)))
