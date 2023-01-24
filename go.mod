@@ -41,6 +41,7 @@ require (
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/joho/godotenv v1.4.0
+	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.10.0
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/midtrans/midtrans-go v1.3.6
