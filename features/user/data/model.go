@@ -12,6 +12,9 @@ type User struct {
 	Email    string
 	Username string
 	Password string
+	Avatar   string
+	HP       string
+	Birth    string
 }
 
 func ToCore(data User) user.Core {
@@ -21,6 +24,9 @@ func ToCore(data User) user.Core {
 		Email:    data.Email,
 		Username: data.Username,
 		Password: data.Password,
+		Avatar:   data.Avatar,
+		HP:       data.HP,
+		Birth:    data.Birth,
 	}
 }
 
@@ -47,5 +53,8 @@ func CoreToData(data user.Core) User {
 		Email:    data.Email,
 		Username: data.Username,
 		Password: data.Password,
+		Avatar:   data.Avatar,
+		HP:       data.HP,
+		Birth:    data.Birth,
 	}
 }

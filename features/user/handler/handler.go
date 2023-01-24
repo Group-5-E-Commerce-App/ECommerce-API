@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"ecommerce/dtos"
 	"ecommerce/features/user"
 	helper "ecommerce/helper"
 	"net/http"
@@ -63,6 +64,14 @@ func (uc *userControll) Profile() echo.HandlerFunc {
 
 func (uc *userControll) Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		file, err := c.FormFile("avatar")
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, dtos.MediaDto{
+				StatusCode: http.StatusInternalServerError,
+				Message:    "error",
+				Data:       &echo.Map{"data": "Select a file to upload"},
+			})
+		}
 
 		ex := c.Get("user")
 
@@ -72,7 +81,7 @@ func (uc *userControll) Update() echo.HandlerFunc {
 		}
 		dataCore := *ToCore(input)
 
-		res, err := uc.srv.Update(ex, dataCore)
+		res, err := uc.srv.Update(*file, ex, dataCore)
 
 		if err != nil {
 			return c.JSON(helper.PrintErrorResponse(err.Error()))

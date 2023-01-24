@@ -5,6 +5,7 @@ import (
 	helper "ecommerce/helper"
 	"errors"
 	"log"
+	"mime/multipart"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
@@ -95,7 +96,7 @@ func (uuc *userUseCase) Profile(token interface{}) (user.Core, error) {
 	return res, nil
 }
 
-func (uuc *userUseCase) Update(token interface{}, updateData user.Core) (user.Core, error) {
+func (uuc *userUseCase) Update(file multipart.FileHeader, token interface{}, updateData user.Core) (user.Core, error) {
 	if updateData.Password != "" {
 		hashed, err := helper.GeneratePassword(updateData.Password)
 		if err != nil {
@@ -106,6 +107,28 @@ func (uuc *userUseCase) Update(token interface{}, updateData user.Core) (user.Co
 	}
 
 	id := helper.ExtractToken(token)
+
+	if file.Size > 5000000 {
+		return user.Core{}, errors.New("file size is too big")
+	}
+
+	formFile, err := file.Open()
+	if err != nil {
+		return user.Core{}, errors.New("open formheader error")
+	}
+
+	if !helper.TypeFile(formFile) {
+		return user.Core{}, errors.New("use jpg or png type file")
+	}
+	defer formFile.Close()
+	formFile, _ = file.Open()
+	uploadUrl, err := helper.NewMediaUpload().AvatarUpload(helper.Avatar{Avatar: formFile})
+
+	if err != nil {
+		return user.Core{}, errors.New("server error")
+	}
+
+	updateData.Avatar = uploadUrl
 
 	res, err := uuc.qry.Update(uint(id), updateData)
 

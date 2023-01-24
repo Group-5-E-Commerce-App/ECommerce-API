@@ -19,6 +19,9 @@ type UpdateRequest struct {
 	Email    string `json:"email" form:"email"`
 	Username string `json:"username" form:"username"`
 	Password string `json:"password" form:"password"`
+	Avatar   string `json:"avatar" form:"avatar"`
+	HP       string `json:"hp" form:"hp"`
+	Birth    string `json:"birth" form:"birth"`
 }
 
 type DeleteRequest struct {
@@ -48,6 +51,9 @@ func ToCore(data interface{}) *user.Core {
 		res.Email = cnv.Email
 		res.Username = cnv.Username
 		res.Password = cnv.Password
+		res.Avatar = cnv.Avatar
+		res.HP = cnv.HP
+		res.Birth = cnv.Birth
 	case DeleteRequest:
 		cnv := data.(DeleteRequest)
 		res.Name = cnv.Name
