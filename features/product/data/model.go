@@ -11,10 +11,8 @@ type Product struct {
 	ProductName   string
 	ProductImage  string
 	Description   string
-	Category      string
 	Qty           uint
 	Price         uint
-	ProductDetail string
 	ImportantInfo string
 	UserID        uint
 }
@@ -24,10 +22,8 @@ type AllProduct struct {
 	ProductName   string
 	ProductImage  string
 	Description   string
-	Category      string
 	Qty           uint
 	Price         uint
-	ProductDetail string
 	ImportantInfo string
 	UserID        uint
 }
