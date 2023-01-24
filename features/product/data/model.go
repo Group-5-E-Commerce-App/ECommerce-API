@@ -38,10 +38,8 @@ func ToCore(data Product) product.Core {
 		ProductName:   data.ProductName,
 		ProductImage:  data.ProductImage,
 		Description:   data.Description,
-		Category:      data.Category,
 		Qty:           data.Qty,
 		Price:         data.Price,
-		ProductDetail: data.ProductDetail,
 		ImportantInfo: data.ImportantInfo,
 		UserID:        data.UserID,
 	}
@@ -53,10 +51,8 @@ func CoreToData(data product.Core) Product {
 		ProductName:   data.ProductName,
 		ProductImage:  data.ProductImage,
 		Description:   data.Description,
-		Category:      data.Category,
 		Qty:           data.Qty,
 		Price:         data.Price,
-		ProductDetail: data.ProductDetail,
 		ImportantInfo: data.ImportantInfo,
 		UserID:        data.UserID,
 	}
@@ -68,10 +64,8 @@ func (dataModel *Product) ModelsToCore() product.Core {
 		ProductName:   dataModel.ProductName,
 		ProductImage:  dataModel.ProductImage,
 		Description:   dataModel.Description,
-		Category:      dataModel.Category,
 		Qty:           dataModel.Qty,
 		Price:         dataModel.Price,
-		ProductDetail: dataModel.ProductDetail,
 		ImportantInfo: dataModel.ImportantInfo,
 		UserID:        dataModel.UserID,
 	}
@@ -91,10 +85,8 @@ func (dataModel *AllProduct) AllModelsToCore() product.Core {
 		ProductName:   dataModel.ProductName,
 		ProductImage:  dataModel.ProductImage,
 		Description:   dataModel.Description,
-		Category:      dataModel.Category,
 		Qty:           dataModel.Qty,
 		Price:         dataModel.Price,
-		ProductDetail: dataModel.ProductDetail,
 		ImportantInfo: dataModel.ImportantInfo,
 		UserID:        dataModel.UserID,
 	}
