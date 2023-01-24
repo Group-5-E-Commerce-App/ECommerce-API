@@ -3,7 +3,7 @@ package handler
 import "ecommerce/features/product"
 
 type ProductResponse struct {
-	ID            uint   `json:"id" form:"id"`
+	ID            uint   `json:"id"`
 	ProductName   string `json:"product_name"`
 	ProductImage  string `json:"product_image"`
 	Description   string `json:"description"`

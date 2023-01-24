@@ -26,7 +26,7 @@ func ToCore(data interface{}) *product.Core {
 		res.Qty = cnv.Qty
 		res.Price = cnv.Price
 		res.ProductDetail = cnv.ProductDetail
-		res.ProductDetail = cnv.ProductDetail
+		res.ImportantInfo = cnv.ImportantInfo
 	default:
 		return nil
 	}
