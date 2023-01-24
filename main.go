@@ -35,6 +35,7 @@ func main() {
 	}))
 
 	e.GET("/products/:id", productHdl.ProductDetail())
+	e.GET("/products", productHdl.ProductList())
 	e.POST("/register", userHdl.Register())
 	e.POST("/login", userHdl.Login())
 	e.GET("/users/profile", userHdl.Profile(), middleware.JWT([]byte(config.JWT_KEY)))

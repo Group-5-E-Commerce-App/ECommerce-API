@@ -65,3 +65,13 @@ func (ph *productHandle) ProductDetail() echo.HandlerFunc {
 		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "success get detail product", res))
 	}
 }
+
+func (ph *productHandle) ProductList() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		res, err := ph.srv.ProductList()
+		if err != nil {
+			return c.JSON(helper.PrintErrorResponse(err.Error()))
+		}
+		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "success get all content", ListCoreToResp(res)))
+	}
+}

@@ -38,3 +38,12 @@ func (pd *productData) ProductDetail(productID uint) (product.Core, error) {
 
 	return ToCore(res), nil
 }
+
+func (pd *productData) ProductList() ([]product.Core, error) {
+	res := []AllProduct{}
+	if err := pd.db.Table("products").Joins("JOIN users ON users.id = products.user_id").Select("products.id, products.product_name, products.description, products.price").Find(&res).Error; err != nil {
+		log.Println("get all product query error : ", err.Error())
+		return []product.Core{}, err
+	}
+	return AllListToCore(res), nil
+}

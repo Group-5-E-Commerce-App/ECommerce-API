@@ -89,3 +89,17 @@ func (ps *productSrv) ProductDetail(productID uint) (product.Core, error) {
 
 	return res, nil
 }
+
+func (ps *productSrv) ProductList() ([]product.Core, error) {
+	res, err := ps.data.ProductList()
+	if err != nil {
+		msg := ""
+		if strings.Contains(err.Error(), "not found") {
+			msg = "content not found"
+		} else {
+			msg = "There is a problem with the server"
+		}
+		return []product.Core{}, errors.New(msg)
+	}
+	return res, nil
+}
