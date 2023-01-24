@@ -2,7 +2,7 @@ package handler
 
 import (
 	"ecommerce/features/user"
-	"ecommerce/helper"
+	helper "ecommerce/helper"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
