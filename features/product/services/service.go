@@ -103,3 +103,51 @@ func (ps *productSrv) ProductList() ([]product.Core, error) {
 	}
 	return res, nil
 }
+
+func (ps *productSrv) Update(file multipart.FileHeader, token interface{}, productID uint, updatedProduct product.Core) (product.Core, error) {
+	id := helper.ExtractToken(token)
+
+	if id <= 0 {
+		return product.Core{}, errors.New("data not found")
+	}
+
+	if file.Size > 500000 {
+		return product.Core{}, errors.New("file size is too big")
+	}
+
+	formFile, err := file.Open()
+	if err != nil {
+		return product.Core{}, errors.New("open file error")
+	}
+
+	if !helper.TypeFile(formFile) {
+		return product.Core{}, errors.New("use jpg or png type file")
+	}
+	defer formFile.Close()
+	formFile, _ = file.Open()
+	uploadUrl, err := helper.NewMediaUpload().AvatarUpload(helper.Avatar{Avatar: formFile})
+
+	if err != nil {
+		return product.Core{}, errors.New("server error")
+	}
+
+	updatedProduct.ProductImage = uploadUrl
+
+	res, err := ps.data.Update(uint(id), productID, updatedProduct)
+
+	if err != nil {
+		msg := ""
+		if strings.Contains(err.Error(), "not found") {
+			msg = "Failed to update, no new record or data not found"
+		} else if strings.Contains(err.Error(), "Unauthorized") {
+			msg = "Unauthorized request"
+		} else {
+			msg = "unable to process the data"
+		}
+		return product.Core{}, errors.New(msg)
+	}
+	res.ID = productID
+	res.UserID = uint(id)
+
+	return res, nil
+}

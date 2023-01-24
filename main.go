@@ -36,6 +36,7 @@ func main() {
 
 	e.GET("/products/:id", productHdl.ProductDetail())
 	e.GET("/products", productHdl.ProductList())
+
 	e.POST("/register", userHdl.Register())
 	e.POST("/login", userHdl.Login())
 	e.GET("/users/profile", userHdl.Profile(), middleware.JWT([]byte(config.JWT_KEY)))
@@ -43,6 +44,7 @@ func main() {
 	e.DELETE("/users", userHdl.Delete(), middleware.JWT([]byte(config.JWT_KEY)))
 
 	e.POST("/products", productHdl.Add(), middleware.JWT([]byte(config.JWT_KEY)))
+	e.PUT("/products/:id", productHdl.Update(), middleware.JWT([]byte(config.JWT_KEY)))
 
 	if err := e.Start(":8000"); err != nil {
 		log.Println(err.Error())

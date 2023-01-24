@@ -75,3 +75,37 @@ func (ph *productHandle) ProductList() echo.HandlerFunc {
 		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "success get all content", ListCoreToResp(res)))
 	}
 }
+
+func (ph *productHandle) Update() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		file, err := c.FormFile("product")
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, dtos.MediaDto{
+				StatusCode: http.StatusInternalServerError,
+				Message:    "error",
+				Data:       &echo.Map{"data": "Select a file to upload"},
+			})
+		}
+
+		token := c.Get("user")
+		paramID := c.Param("id")
+		productID, err := strconv.Atoi(paramID)
+
+		if err != nil {
+			log.Println("convert id error", err.Error())
+			return c.JSON(http.StatusBadGateway, "Invalid input")
+		}
+
+		body := UpdateProductRequest{}
+		if err := c.Bind(&body); err != nil {
+			return c.JSON(http.StatusBadGateway, "invalid input")
+		}
+
+		res, err := ph.srv.Update(*file, token, uint(productID), *ToCore(body))
+		if err != nil {
+			return c.JSON(PrintErrorResponse(err.Error()))
+		}
+
+		return c.JSON(PrintSuccessReponse(http.StatusAccepted, "updated product successfully", res))
+	}
+}

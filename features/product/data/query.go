@@ -2,6 +2,7 @@ package data
 
 import (
 	"ecommerce/features/product"
+	"errors"
 	"log"
 
 	"gorm.io/gorm"
@@ -46,4 +47,31 @@ func (pd *productData) ProductList() ([]product.Core, error) {
 		return []product.Core{}, err
 	}
 	return AllListToCore(res), nil
+}
+
+func (pd *productData) Update(userID uint, productID uint, updatedProduct product.Core) (product.Core, error) {
+	getID := Product{}
+	err := pd.db.Where("id = ?", productID).First(&getID).Error
+
+	if err != nil {
+		log.Println("get product error : ", err.Error())
+		return product.Core{}, err
+	}
+
+	if getID.UserID != userID {
+		log.Println("unauthorized request")
+		return product.Core{}, errors.New("unauthorized request")
+	}
+
+	cnv := CoreToData(updatedProduct)
+	qry := pd.db.Where("id = ?", productID).Updates(&cnv)
+	if qry.RowsAffected <= 0 {
+		log.Println("update product query error : data not found")
+		return product.Core{}, errors.New("not found")
+	}
+
+	if err := qry.Error; err != nil {
+		log.Println("update product query error : ", err.Error())
+	}
+	return updatedProduct, nil
 }
