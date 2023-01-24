@@ -75,3 +75,29 @@ func (pd *productData) Update(userID uint, productID uint, updatedProduct produc
 	}
 	return updatedProduct, nil
 }
+
+func (pd *productData) Delete(userID uint, productID uint) error {
+	getID := Product{}
+	err := pd.db.Where("id = ?", productID).First(&getID).Error
+
+	if err != nil {
+		log.Println("get product error : ", err.Error())
+		return errors.New("failed to get product data")
+	}
+
+	if getID.UserID != userID {
+		log.Println("unauthorized request")
+		return errors.New("unauthorized request")
+	}
+
+	qryDelete := pd.db.Delete(&Product{}, productID)
+
+	affRow := qryDelete.RowsAffected
+
+	if affRow <= 0 {
+		log.Println("No rows affected")
+		return errors.New("failed to delete user product, data not found")
+	}
+
+	return nil
+}

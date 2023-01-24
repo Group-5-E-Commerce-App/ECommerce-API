@@ -109,3 +109,25 @@ func (ph *productHandle) Update() echo.HandlerFunc {
 		return c.JSON(PrintSuccessReponse(http.StatusAccepted, "updated product successfully", res))
 	}
 }
+
+func (ph *productHandle) Delete() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		token := c.Get("user")
+		paramID := c.Param("id")
+		productID, err := strconv.Atoi(paramID)
+
+		if err != nil {
+			log.Println("convert id error", err.Error())
+			return c.JSON(http.StatusBadGateway, "Invalid input")
+		}
+
+		err = ph.srv.Delete(token, uint(productID))
+
+		if err != nil {
+			return c.JSON(helper.PrintErrorResponse(err.Error()))
+		}
+
+		return c.JSON(http.StatusAccepted, "Success delete product")
+	}
+
+}

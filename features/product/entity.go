@@ -22,7 +22,7 @@ type ProductHandler interface {
 	ProductDetail() echo.HandlerFunc
 	ProductList() echo.HandlerFunc
 	Update() echo.HandlerFunc
-	// Delete() echo.HandlerFunc
+	Delete() echo.HandlerFunc
 }
 
 type ProductService interface {
@@ -30,7 +30,7 @@ type ProductService interface {
 	ProductDetail(productID uint) (Core, error)
 	ProductList() ([]Core, error)
 	Update(file multipart.FileHeader, token interface{}, contentID uint, updatedProduct Core) (Core, error)
-	// Delete(token interface{}, contentID uint) error
+	Delete(token interface{}, contentID uint) error
 }
 
 type ProductData interface {
@@ -38,5 +38,5 @@ type ProductData interface {
 	ProductDetail(productID uint) (Core, error)
 	ProductList() ([]Core, error)
 	Update(userID uint, contentID uint, updatedProduct Core) (Core, error)
-	// Delete(userID uint, contentID uint) error
+	Delete(userID uint, contentID uint) error
 }

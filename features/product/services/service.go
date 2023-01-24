@@ -151,3 +151,20 @@ func (ps *productSrv) Update(file multipart.FileHeader, token interface{}, produ
 
 	return res, nil
 }
+
+func (ps *productSrv) Delete(token interface{}, productID uint) error {
+	id := helper.ExtractToken(token)
+
+	if id <= 0 {
+		return errors.New("data not found")
+	}
+
+	err := ps.data.Delete(uint(id), productID)
+
+	if err != nil {
+		log.Println("delete query error", err.Error())
+		return err
+	}
+
+	return nil
+}
