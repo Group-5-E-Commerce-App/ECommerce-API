@@ -12,7 +12,6 @@ type User struct {
 	Email    string
 	Username string
 	Password string
-	// Product  []data.Product `gorm:"foreignKey:UserID;references:ID;constraint:OnDelete:CASCADE"`
 }
 
 func ToCore(data User) user.Core {
