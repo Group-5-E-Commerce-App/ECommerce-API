@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Products struct {
+type Product struct {
 	gorm.Model
 	ProductName   string
 	ProductImage  string
@@ -19,7 +19,7 @@ type Products struct {
 	UserID        uint
 }
 
-func ToCore(data Products) product.Core {
+func ToCore(data Product) product.Core {
 	return product.Core{
 		ID:            data.ID,
 		ProductName:   data.ProductName,
@@ -34,8 +34,8 @@ func ToCore(data Products) product.Core {
 	}
 }
 
-func CoreToData(data product.Core) Products {
-	return Products{
+func CoreToData(data product.Core) Product {
+	return Product{
 		Model:         gorm.Model{ID: data.ID},
 		ProductName:   data.ProductName,
 		ProductImage:  data.ProductImage,

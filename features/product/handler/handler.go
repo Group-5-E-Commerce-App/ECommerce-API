@@ -40,9 +40,9 @@ func (ph *productHandle) Add() echo.HandlerFunc {
 
 		res, err := ph.srv.Add(*file, c.Get("user"), *cnv)
 		if err != nil {
-			log.Println("error post content : ", err.Error())
+			log.Println("error post product : ", err.Error())
 			return c.JSON(http.StatusInternalServerError, "unable to process the data")
 		}
-		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "success post content", res))
+		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "success post product", res))
 	}
 }

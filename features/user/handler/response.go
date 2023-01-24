@@ -3,11 +3,14 @@ package handler
 import "ecommerce/features/user"
 
 type UserReponse struct {
-	ID       uint   `json:"id"`
+	ID       uint   `json:"id" form:"id"`
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Username string `json:"username"`
 	Password string `json:"password"`
+	Avatar   string `json:"avatar"`
+	HP       string `json:"hp"`
+	Birth    string `json:"birth"`
 }
 
 func ToResponse(data user.Core) UserReponse {
@@ -17,6 +20,9 @@ func ToResponse(data user.Core) UserReponse {
 		Email:    data.Email,
 		Username: data.Username,
 		Password: data.Password,
+		Avatar:   data.Avatar,
+		HP:       data.HP,
+		Birth:    data.Birth,
 	}
 }
 
