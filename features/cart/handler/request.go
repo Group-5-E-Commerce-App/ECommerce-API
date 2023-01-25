@@ -9,14 +9,7 @@ type AddCartReq struct {
 }
 
 type UpdateFormat struct {
-<<<<<<< HEAD
-	ID         uint `json:"id" form:"id"`
-	IdProduct  uint `json:"id_product" form:"id_product"`
-	IdUser     uint `json:"id_user" form:"id_user"`
-	QtyProduct int  `json:"product_qty" form:"product_qty"`
-=======
 	QtyProduct int `json:"product_qty" form:"product_qty"`
->>>>>>> feat : cart update and delete
 }
 
 type GetId struct {
@@ -42,11 +35,6 @@ func ToCore(data interface{}) *cart.Core {
 		res.QtyProduct = cnv.QtyProduct
 	case UpdateFormat:
 		cnv := data.(UpdateFormat)
-<<<<<<< HEAD
-		res.IdProduct = cnv.IdProduct
-		res.IdUser = cnv.IdUser
-=======
->>>>>>> feat : cart update and delete
 		res.QtyProduct = cnv.QtyProduct
 	default:
 		return nil
