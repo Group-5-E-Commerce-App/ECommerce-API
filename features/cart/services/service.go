@@ -88,21 +88,3 @@ func (cs *cartService) AddCart(newProduct cart.Core) (cart.Core, error) {
 
 	return res, nil
 }
-
-// func (cs *cartService) Get(token interface{}) (cart.Core, error) {
-// 	id := helper.ExtractToken(token)
-// 	if id <= 0 {
-// 		return cart.Core{}, errors.New("data tidak ditemukan")
-// 	}
-// 	res, err := cs.qry.Get(uint(id))
-// 	if err != nil {
-// 		msg := ""
-// 		if strings.Contains(err.Error(), "not found") {
-// 			msg = "data tidak ditemukan"
-// 		} else {
-// 			msg = "terdapat masalah pada server"
-// 		}
-// 		return cart.Core{}, errors.New(msg)
-// 	}
-// 	return res, nil
-// }

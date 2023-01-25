@@ -18,36 +18,6 @@ func New(db *gorm.DB) cart.CartData {
 	}
 }
 
-<<<<<<< HEAD
-// func (cq *cartQuery) AddCart(newCart cart.Core) (cart.Core, error) {
-// 	var compare Product
-// 	if err := cq.db.Where("id_user = ? AND id = ?", newCart.IdUser, newCart.IdProduct).First(&compare).Error; err == nil {
-// 		log.Print(errors.New("cannot buy own product"))
-// 		return cart.Core{}, errors.New("cannot buy own product")
-// 	}
-
-// 	if err := cq.db.Where("id_product=?", newCart.IdProduct).First(&newCart).Error; err == nil {
-// 		newCart.QtyProduct += 1
-// 		if err := cq.db.Model(&Cart{}).Where("id_product = ?", newCart.IdProduct).Update("product_qty", newCart.QtyProduct).Error; err != nil {
-// 			log.Print(errors.New("error udpdate quantity"))
-// 			return cart.Core{}, err
-
-// 		}
-// 	} else {
-// 		if err := cq.db.Where("id = ? AND product_qty>=?", newCart.IdProduct, newCart.QtyProduct).First(&compare).Error; err != nil {
-// 			log.Print(errors.New("stock product tidak cukup"))
-// 			return cart.Core{}, errors.New("stock product tidak cukup")
-// 		}
-
-// 		if err := cq.db.Select("id_product", "id_user", "product_qty").Create(&newCart).Error; err != nil {
-// 			return cart.Core{}, err
-// 		}
-
-// 	}
-
-//		// selesai dari DB
-//		return ToCore(newCart), nil
-//	}
 func (cq *cartQuery) AddCart(newCart cart.Core) (cart.Core, error) {
 	produk := Product{}
 	err := cq.db.Where("id=?", newCart.IdProduct).First(&produk).Error
@@ -66,7 +36,8 @@ func (cq *cartQuery) AddCart(newCart cart.Core) (cart.Core, error) {
 	}
 	result := ToCore(cnv)
 	return result, nil
-=======
+}
+
 func (cq *cartQuery) Update(userID uint, cartID uint, qty int) (cart.Core, error) {
 	getID := Cart{}
 	err := cq.db.Where("id = ?", cartID).First(&getID).Error
@@ -116,5 +87,4 @@ func (cq *cartQuery) Delete(userID uint, cartID uint) error {
 	}
 
 	return nil
->>>>>>> feat : cart update and delete
 }
