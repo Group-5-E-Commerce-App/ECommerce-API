@@ -1,16 +1,15 @@
 package services
 
 // import (
-// 	"ecommerce/features/user"
-// 	"ecommerce/helper"
-// 	"ecommerce/mocks"
 // 	"errors"
+// 	"project/features/user"
+// 	helper "project/helper"
+// 	"project/mocks"
 // 	"testing"
 
 // 	"github.com/golang-jwt/jwt"
 // 	"github.com/stretchr/testify/assert"
 // 	"github.com/stretchr/testify/mock"
-
 // 	"golang.org/x/crypto/bcrypt"
 // )
 
@@ -112,14 +111,42 @@ package services
 // 		repo.AssertExpectations(t)
 // 	})
 // }
+// func TestAllUser(t *testing.T) {
+// 	repo := mocks.NewUserData(t)
+// 	user := []user.Core{{
+// 		ID:       1,
+// 		Name:     "Herdy",
+// 		Email:    "herdy@gmail.com",
+// 		Username: "herdy123",
+// 	}}
+// 	t.Run("Sukses lihat data", func(t *testing.T) {
+// 		repo.On("AllUser", mock.Anything).Return(user, nil).Once()
 
+// 		srv := New(repo)
+// 		res, err := srv.AllUser()
+// 		assert.NoError(t, err)
+// 		assert.Equal(t, res, res)
+// 		repo.AssertExpectations(t)
+
+// 	})
+// 	t.Run("not found", func(t *testing.T) {
+// 		repo.On("AllUser").Return(nil, errors.New("not found")).Once()
+
+// 		srv := New(repo)
+
+// 		res, err := srv.AllUser()
+// 		assert.NoError(t, err)
+// 		assert.Equal(t, res, res)
+// 		repo.AssertExpectations(t)
+// 	})
+
+// }
 // func TestUpdate(t *testing.T) {
 // 	repo := mocks.NewUserData(t)
 
 // 	t.Run("sukses update data", func(t *testing.T) {
-// 		input := user.Core{Name: "rischi", Email: "rischi@gmail.com", Username: "rischi17"}
-// 		passwordHashed, _ := helper.GeneratePassword("rischi123")
-// 		updatedData := user.Core{ID: uint(1), Name: "rischi17", Email: "rischi@gmail.com", Username: "rischi17", Password: passwordHashed}
+// 		input := user.Core{Name: "herdi", Email: "herdiladania11@gmail.com", Username: "herdiladania11"}
+// 		updatedData := user.Core{ID: uint(1), Name: "herdi", Email: "herdiladania11@gmail.com", Username: "herdiladania11"}
 // 		repo.On("Update", uint(1), input).Return(updatedData, nil).Once()
 
 // 		service := New(repo)
@@ -127,29 +154,31 @@ package services
 // 		pToken := token.(*jwt.Token)
 // 		pToken.Valid = true
 // 		res, err := service.Update(pToken, input)
-// 		assert.Nil(t, err)
+// 		assert.NoError(t, err)
 // 		assert.Equal(t, updatedData.ID, res.ID)
-// 		assert.NotEqual(t, input.Name, res.Name)
-// 		assert.NotEqual(t, input.Email, res.Email)
-// 		assert.NotEqual(t, input.Username, res.Username)
+// 		assert.Equal(t, input.Name, res.Name)
+// 		assert.Equal(t, input.Email, res.Email)
+// 		assert.Equal(t, input.Username, res.Username)
 // 		repo.AssertExpectations(t)
 // 	})
+// 	t.Run("Input tidak sesuai format", func(t *testing.T) {
+// 		input := user.Core{
+// 			Email: "herdi",
+// 		}
+// 		repo.On("Update", uint(1), input).Return(user.Core{}, errors.New("input tidak sesuai")).Once()
 
-// 	t.Run("jwt tidak valid", func(t *testing.T) {
-// 		input := user.Core{Name: "rischi", Email: "rischi@gmail.com", Username: "rischi17"}
 // 		service := New(repo)
-
-// 		_, token := helper.GenerateJWT(0)
+// 		_, token := helper.GenerateJWT(1)
 // 		pToken := token.(*jwt.Token)
 // 		pToken.Valid = true
 // 		res, err := service.Update(pToken, input)
 // 		assert.NotNil(t, err)
-// 		assert.ErrorContains(t, err, "not found")
+// 		assert.ErrorContains(t, err, "server")
 // 		assert.Equal(t, uint(0), res.ID)
+// 		repo.AssertExpectations(t)
 // 	})
-
 // 	t.Run("data tidak ditemukan", func(t *testing.T) {
-// 		input := user.Core{Name: "rischi", Email: "rischi@gmail.com", Username: "rischi17"}
+// 		input := user.Core{Name: "herdi", Email: "herdiladania11@gmail.com", Username: "herdiladania11"}
 // 		repo.On("Update", uint(5), input).Return(user.Core{}, errors.New("data not found")).Once()
 
 // 		service := New(repo)
@@ -164,7 +193,7 @@ package services
 // 	})
 
 // 	t.Run("masalah di server", func(t *testing.T) {
-// 		input := user.Core{Name: "rischi", Email: "rischi@gmail.com", Username: "rischi17"}
+// 		input := user.Core{Name: "herdi", Email: "herdiladania11@gmail.com", Username: "herdiladania11"}
 // 		repo.On("Update", uint(1), input).Return(user.Core{}, errors.New("terdapat masalah pada server")).Once()
 
 // 		service := New(repo)
@@ -283,9 +312,9 @@ package services
 // 	t.Run("Validation error", func(t *testing.T) {
 
 // 		user := user.Core{
-// 			Name:     "rischi",
-// 			Email:    "rischi@gmail.com",
-// 			Username: "rischi123",
+// 			Name:     "Herdy",
+// 			Email:    "herdy@gmail.com",
+// 			Username: "herdy123",
 // 		}
 
 // 		actual, err := srv.Register(user)
