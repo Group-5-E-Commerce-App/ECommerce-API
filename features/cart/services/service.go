@@ -63,17 +63,6 @@ func (cs *cartService) Delete(token interface{}, cartID uint) error {
 
 func (cs *cartService) AddCart(token interface{}, productId uint, newProduct cart.Core) (cart.Core, error) {
 	id := helper.ExtractToken(token)
-	err := cs.vld.Struct(newProduct)
-	if err != nil {
-		if _, ok := err.(*validator.InvalidValidationError); ok {
-			log.Println(err)
-		}
-		return cart.Core{}, errors.New("validation error")
-	}
-	if err != nil {
-		log.Println("bcrypt error ", err.Error())
-		return cart.Core{}, errors.New("password process error")
-	}
 
 	res, err := cs.qry.AddCart(uint(id), productId, newProduct)
 	if err != nil {
