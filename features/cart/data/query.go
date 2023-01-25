@@ -18,7 +18,7 @@ func New(db *gorm.DB) cart.CartData {
 	}
 }
 
-func (cq *cartQuery) AddCart(newCart cart.Core) (cart.Core, error) {
+func (cq *cartQuery) AddCart(productId uint, UserID uint, newCart cart.Core) (cart.Core, error) {
 	produk := Product{}
 	err := cq.db.Where("id=?", newCart.IdProduct).First(&produk).Error
 	if err != nil {

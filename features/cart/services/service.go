@@ -61,8 +61,8 @@ func (cs *cartService) Delete(token interface{}, cartID uint) error {
 
 }
 
-func (cs *cartService) AddCart(newProduct cart.Core) (cart.Core, error) {
-
+func (cs *cartService) AddCart(token interface{}, productId uint, newProduct cart.Core) (cart.Core, error) {
+	id := helper.ExtractToken(token)
 	err := cs.vld.Struct(newProduct)
 	if err != nil {
 		if _, ok := err.(*validator.InvalidValidationError); ok {
@@ -75,7 +75,7 @@ func (cs *cartService) AddCart(newProduct cart.Core) (cart.Core, error) {
 		return cart.Core{}, errors.New("password process error")
 	}
 
-	res, err := cs.qry.AddCart(newProduct)
+	res, err := cs.qry.AddCart(uint(id), productId, newProduct)
 	if err != nil {
 		msg := ""
 		if strings.Contains(err.Error(), "duplicated") {

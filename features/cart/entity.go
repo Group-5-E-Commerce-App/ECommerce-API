@@ -23,14 +23,14 @@ type CartHandler interface {
 }
 
 type CartService interface {
-	AddCart(newProduct Core) (Core, error)
+	AddCart(token interface{}, productId uint, newProduct Core) (Core, error)
 	// Get(token interface{}) (Core, error)
 	Update(token interface{}, cartID uint, qty int) (Core, error)
 	Delete(token interface{}, cartID uint) error
 }
 
 type CartData interface {
-	AddCart(newCart Core) (Core, error)
+	AddCart(productId uint, UserID uint, newCart Core) (Core, error)
 	// Get(id uint) (Core, error)
 	Update(userID uint, cartID uint, qty int) (Core, error)
 	Delete(userID uint, cartID uint) error
