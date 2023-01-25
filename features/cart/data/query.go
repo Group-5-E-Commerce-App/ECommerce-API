@@ -19,8 +19,9 @@ func New(db *gorm.DB) cart.CartData {
 }
 
 func (cq *cartQuery) AddCart(productId uint, UserID uint, newCart cart.Core) (cart.Core, error) {
+
 	produk := Product{}
-	err := cq.db.Where("id=?", newCart.IdProduct).First(&produk).Error
+	err := cq.db.Where("id=?", productId).First(&produk).Error
 	if err != nil {
 		log.Println("query error", err.Error())
 		return cart.Core{}, errors.New("server error")
