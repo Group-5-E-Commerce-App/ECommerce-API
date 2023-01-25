@@ -16,22 +16,23 @@ type Core struct {
 }
 
 type CartHandler interface {
-	AddCart() echo.HandlerFunc
+	// AddCart() echo.HandlerFunc
 	// Get() echo.HandlerFunc
+	Update() echo.HandlerFunc
 	// Delete() echo.HandlerFunc
-	// Update() echo.HandlerFunc
+
 }
 
 type CartService interface {
-	AddCart(newProduct Core) (Core, error)
+	// AddCart(newProduct Core) (Core, error)
 	// Get(token interface{}) (Core, error)
-	// Update(token interface{}, updateData Core) (Core, error)
-	// Delete(token interface{}) (Core, error)
+	Update(token interface{}, cartID uint, qty int) (Core, error)
+	Delete(token interface{}, cartID uint) error
 }
 
 type CartData interface {
-	AddCart(newCart Core) (Core, error)
+	// AddCart(newCart Core) (Core, error)
 	// Get(id uint) (Core, error)
-	// Update(id uint, updateData Core) (Core, error)
-	// Delete(id uint) (Core, error)
+	Update(userID uint, cartID uint, qty int) (Core, error)
+	Delete(userID uint, cartID uint) error
 }
