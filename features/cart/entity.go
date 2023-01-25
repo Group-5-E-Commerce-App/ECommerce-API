@@ -19,8 +19,7 @@ type CartHandler interface {
 	// AddCart() echo.HandlerFunc
 	// Get() echo.HandlerFunc
 	Update() echo.HandlerFunc
-	// Delete() echo.HandlerFunc
-
+	Delete() echo.HandlerFunc
 }
 
 type CartService interface {
