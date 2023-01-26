@@ -40,7 +40,7 @@ func main() {
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status}, error=${error}\n",
 	}))
-
+	//product
 	e.GET("/products/:id", productHdl.ProductDetail())
 	e.GET("/products", productHdl.ProductList())
 
