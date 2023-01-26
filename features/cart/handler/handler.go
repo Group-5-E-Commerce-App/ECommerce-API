@@ -35,14 +35,14 @@ func (ch *cartHandler) Update() echo.HandlerFunc {
 			return c.JSON(http.StatusBadGateway, "invalid input")
 		}
 
-		res, err := ch.srv.Update(token, uint(cartID), input.QtyProduct)
+		res, err := ch.srv.Update(token, uint(cartID), *ToCore(input))
 		if err != nil {
 			return c.JSON(helper.PrintErrorResponse(err.Error()))
 		}
 
 		return c.JSON(http.StatusCreated, map[string]interface{}{
 			"data":    res,
-			"message": "success edit product quanity in cart",
+			"message": "success edit product quantity in cart",
 		})
 
 	}
@@ -70,21 +70,29 @@ func (ch *cartHandler) Delete() echo.HandlerFunc {
 func (ch *cartHandler) AddCart() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		token := c.Get("user")
-		paramID := c.Param("id")
-		cartID, err := strconv.Atoi(paramID)
 		input := AddCartReq{}
 		if err := c.Bind(&input); err != nil {
 			return c.JSON(http.StatusBadRequest, "format inputan salah")
 		}
+		res, err := ch.srv.AddCart(token, input.IdProduct, *ToCore(input))
+		if err != nil {
+			return c.JSON(helper.PrintErrorResponse(err.Error()))
+		}
+		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "berhasil menambahkan", res))
+	}
+}
 
-		idProduct, err := strconv.Atoi(c.Param("idProduct"))
+func (ch *cartHandler) Get() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		token := c.Get("user")
+		res, err := ch.srv.Get(token)
 		if err != nil {
-			return c.JSON(helper.PrintErrorResponse(err.Error()))
+			log.Println("error get all Cart :", err.Error())
 		}
-		_, err = ch.srv.AddCart(token, uint(cartID), *ToCore(idProduct))
-		if err != nil {
-			return c.JSON(helper.PrintErrorResponse(err.Error()))
-		}
-		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "berhasil menambahkan"))
+
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"data":    ListCoreToResp(res),
+			"message": "success show all product in cart",
+		})
 	}
 }
