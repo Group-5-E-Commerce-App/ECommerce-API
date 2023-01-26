@@ -4,7 +4,6 @@ import cart "ecommerce/features/cart"
 
 type AddCartReq struct {
 	IdProduct  uint `json:"id_product" form:"id_product"`
-	IdUser     uint `json:"id_user" form:"id_user"`
 	QtyProduct int  `json:"product_qty" form:"product_qty"`
 }
 
@@ -26,7 +25,6 @@ func ToCore(data interface{}) *cart.Core {
 	case AddCartReq:
 		cnv := data.(AddCartReq)
 		res.IdProduct = cnv.IdProduct
-		res.IdUser = cnv.IdUser
 		res.QtyProduct = cnv.QtyProduct
 	case GetId:
 		cnv := data.(GetId)

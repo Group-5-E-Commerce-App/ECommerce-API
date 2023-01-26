@@ -24,14 +24,14 @@ func New(cd cart.CartData) cart.CartService {
 	}
 }
 
-func (cs *cartService) Update(token interface{}, cartID uint, qty int) (cart.Core, error) {
+func (cs *cartService) Update(token interface{}, cartID uint, updatedCart cart.Core) (cart.Core, error) {
 	id := helper.ExtractToken(token)
 
 	if id <= 0 {
 		return cart.Core{}, errors.New("data not found")
 	}
 
-	res, err := cs.qry.Update(uint(id), cartID, qty)
+	res, err := cs.qry.Update(uint(id), cartID, updatedCart)
 	if err != nil {
 		msg := ""
 		if strings.Contains(err.Error(), "not found") {
@@ -61,10 +61,10 @@ func (cs *cartService) Delete(token interface{}, cartID uint) error {
 
 }
 
-func (cs *cartService) AddCart(token interface{}, productId uint, newProduct cart.Core) (cart.Core, error) {
+func (cs *cartService) AddCart(token interface{}, productID uint, newCart cart.Core) (cart.Core, error) {
 	id := helper.ExtractToken(token)
 
-	res, err := cs.qry.AddCart(uint(id), productId, newProduct)
+	res, err := cs.qry.AddCart(uint(id), productID, newCart)
 	if err != nil {
 		msg := ""
 		if strings.Contains(err.Error(), "duplicated") {
