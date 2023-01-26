@@ -11,7 +11,7 @@ type Core struct {
 	ProductName   string `json:"product_name" form:"product_name"`
 	ProductImage  string `json:"product_image" form:"product_image"`
 	Description   string `json:"description" form:"description"`
-	Qty           uint   `json:"qty" form:"qty"`
+	Stok          uint   `json:"stok" form:"stok"`
 	Price         uint   `json:"price" form:"price"`
 	ImportantInfo string `json:"important_info" form:"important_info"`
 	UserID        uint   `json:"user_id" form:"user_id"`

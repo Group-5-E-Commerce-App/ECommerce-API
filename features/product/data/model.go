@@ -11,7 +11,7 @@ type Product struct {
 	ProductName   string
 	ProductImage  string
 	Description   string
-	Qty           uint
+	Stok          uint
 	Price         uint
 	ImportantInfo string
 	UserID        uint
@@ -22,7 +22,7 @@ type AllProduct struct {
 	ProductName   string
 	ProductImage  string
 	Description   string
-	Qty           uint
+	Stok          uint
 	Price         uint
 	ImportantInfo string
 	UserID        uint
@@ -34,7 +34,7 @@ func ToCore(data Product) product.Core {
 		ProductName:   data.ProductName,
 		ProductImage:  data.ProductImage,
 		Description:   data.Description,
-		Qty:           data.Qty,
+		Stok:          data.Stok,
 		Price:         data.Price,
 		ImportantInfo: data.ImportantInfo,
 		UserID:        data.UserID,
@@ -47,7 +47,7 @@ func CoreToData(data product.Core) Product {
 		ProductName:   data.ProductName,
 		ProductImage:  data.ProductImage,
 		Description:   data.Description,
-		Qty:           data.Qty,
+		Stok:          data.Stok,
 		Price:         data.Price,
 		ImportantInfo: data.ImportantInfo,
 		UserID:        data.UserID,
@@ -60,7 +60,7 @@ func (dataModel *Product) ModelsToCore() product.Core {
 		ProductName:   dataModel.ProductName,
 		ProductImage:  dataModel.ProductImage,
 		Description:   dataModel.Description,
-		Qty:           dataModel.Qty,
+		Stok:          dataModel.Stok,
 		Price:         dataModel.Price,
 		ImportantInfo: dataModel.ImportantInfo,
 		UserID:        dataModel.UserID,
@@ -81,7 +81,7 @@ func (dataModel *AllProduct) AllModelsToCore() product.Core {
 		ProductName:   dataModel.ProductName,
 		ProductImage:  dataModel.ProductImage,
 		Description:   dataModel.Description,
-		Qty:           dataModel.Qty,
+		Stok:          dataModel.Stok,
 		Price:         dataModel.Price,
 		ImportantInfo: dataModel.ImportantInfo,
 		UserID:        dataModel.UserID,

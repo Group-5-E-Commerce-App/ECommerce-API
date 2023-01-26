@@ -18,8 +18,8 @@ import (
 func TestAdd(t *testing.T) {
 	repo := mocks.NewProductData(t)
 
-	inputProduct := product.Core{ProductName: "Mie Goreng", ProductImage: "indomie.jpg", Description: "Mie Goreng micinnya banyak bener", Qty: 10, Price: 3500, ImportantInfo: "Penting banget"}
-	resProduct := product.Core{ID: uint(1), ProductName: "Mie Goreng", ProductImage: "https://res.cloudinary.com/dbg0177wd/image/upload/v1673881607/go-cloudinary/llhltxp55elirjkmlyld.png", Description: "Mie Goreng micinnya banyak bener", Qty: 10, Price: 3500, ImportantInfo: "Penting banget"}
+	inputProduct := product.Core{ProductName: "Mie Goreng", ProductImage: "indomie.jpg", Description: "Mie Goreng micinnya banyak bener", Stok: 10, Price: 3500, ImportantInfo: "Penting banget"}
+	resProduct := product.Core{ID: uint(1), ProductName: "Mie Goreng", ProductImage: "https://res.cloudinary.com/dbg0177wd/image/upload/v1673881607/go-cloudinary/llhltxp55elirjkmlyld.png", Description: "Mie Goreng micinnya banyak bener", Stok: 10, Price: 3500, ImportantInfo: "Penting banget"}
 	// var a multipart.FileHeader
 
 	t.Run("success post product", func(t *testing.T) {

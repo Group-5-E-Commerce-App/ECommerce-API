@@ -11,7 +11,7 @@ type ProductResponse struct {
 	ProductName   string `json:"product_name"`
 	ProductImage  string `json:"product_image"`
 	Description   string `json:"description"`
-	Qty           uint   `json:"qty"`
+	Stok          uint   `json:"stok"`
 	Price         uint   `json:"price"`
 	ImportantInfo string `json:"important_info"`
 }
@@ -22,7 +22,7 @@ func ToResponse(data product.Core) ProductResponse {
 		ProductName:   data.ProductName,
 		ProductImage:  data.ProductImage,
 		Description:   data.Description,
-		Qty:           data.Qty,
+		Stok:          data.Stok,
 		Price:         data.Price,
 		ImportantInfo: data.ImportantInfo,
 	}
@@ -34,7 +34,7 @@ func CoresToResponse(dataCore product.Core) ProductResponse {
 		ProductName:   dataCore.ProductName,
 		ProductImage:  dataCore.ProductImage,
 		Description:   dataCore.Description,
-		Qty:           dataCore.Qty,
+		Stok:          dataCore.Stok,
 		Price:         dataCore.Price,
 		ImportantInfo: dataCore.ImportantInfo,
 	}
