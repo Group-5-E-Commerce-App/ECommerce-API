@@ -11,6 +11,7 @@ type Cart struct {
 	Qty       int
 	UserID    uint
 	ProductID uint
+	Price     float64
 }
 
 type User struct {

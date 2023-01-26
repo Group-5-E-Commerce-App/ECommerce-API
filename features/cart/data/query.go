@@ -29,7 +29,6 @@ func (cq *cartQuery) AddCart(userID uint, productID uint, newCart cart.Core) (ca
 	cnv := CoreToData(newCart)
 	cnv.ProductID = produk.ID
 	cnv.UserID = userID
-	cnv.Qty = 1
 	err = cq.db.Create(&cnv).Error
 	if err != nil {
 		log.Println("query error", err.Error())
@@ -74,4 +73,14 @@ func (cq *cartQuery) Delete(userID uint, cartID uint) error {
 	}
 
 	return nil
+}
+
+func (cq *cartQuery) Get(userID uint) ([]cart.Core, error) {
+	allCart := []cart.Core{}
+	err := cq.db.Raw("SELECT carts.user_id, carts.product_id, products.price, carts.qty FROM carts JOIN users ON carts.user_id = users.id JOIN products ON carts.product_id = products.id").Scan(&allCart).Error
+	if err != nil {
+		log.Println("delete query error", err.Error())
+		return []cart.Core{}, err
+	}
+	return allCart, nil
 }

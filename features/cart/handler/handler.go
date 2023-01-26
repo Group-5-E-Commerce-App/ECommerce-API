@@ -81,3 +81,18 @@ func (ch *cartHandler) AddCart() echo.HandlerFunc {
 		return c.JSON(helper.PrintSuccessReponse(http.StatusCreated, "berhasil menambahkan", res))
 	}
 }
+
+func (ch *cartHandler) Get() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		token := c.Get("user")
+		res, err := ch.srv.Get(token)
+		if err != nil {
+			log.Println("error get all Cart :", err.Error())
+		}
+
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"data":    ListCoreToResp(res),
+			"message": "success show all product in cart",
+		})
+	}
+}

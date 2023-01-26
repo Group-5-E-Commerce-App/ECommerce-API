@@ -77,3 +77,20 @@ func (cs *cartService) AddCart(token interface{}, productID uint, newCart cart.C
 
 	return res, nil
 }
+
+func (cs *cartService) Get(token interface{}) ([]cart.Core, error) {
+	id := helper.ExtractToken(token)
+	res, err := cs.qry.Get(uint(id))
+	if err != nil {
+		msg := ""
+		if strings.Contains(err.Error(), "not found") {
+			msg = "Failed to update, no new record or data not found"
+		} else if strings.Contains(err.Error(), "Unauthorized") {
+			msg = "Unauthorized request"
+		} else {
+			msg = "unable to process the data"
+		}
+		return []cart.Core{}, errors.New(msg)
+	}
+	return res, nil
+}
