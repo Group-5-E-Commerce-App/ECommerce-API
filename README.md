@@ -20,6 +20,9 @@ This RESTful API was developed by using Golang and written based on Clean Archit
 - Database Migration
 - Automated deployment with GitHub Actions, DockerHub & AWS EC2
 
+# ERD
+<img src="ERD_Group5.jpg">
+
 # 🔥 Open API
 
 Simply [click here](https://app.swaggerhub.com/apis-docs/ALIFMUHAMADHAFIDZ23/Group5-ECommerce/1.0.0) to see the details of endpoints we have agreed with our FE team.
